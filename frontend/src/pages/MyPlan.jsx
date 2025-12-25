@@ -102,15 +102,13 @@ const MyPlanPage = () => {
 
   if (fullView) {
     return (
-      <div className="fullview-container">
-        <button
-          onClick={() => setFullView(null)}
-          className="back-button"
-        >
-          ← Back
-        </button>
-        <h1 className="fullview-title">{fullView.title}</h1>
-        <PlanList plans={fullView.items} />
+      <div className="explore-page">
+        <PlanList
+          initialPlans={fullView.items}
+          isFullView={true}
+          fullViewTitle={fullView.title}
+          onBack={() => setFullView(null)}
+        />
       </div>
     );
   }

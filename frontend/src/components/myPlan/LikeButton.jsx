@@ -1,24 +1,36 @@
-import React, { useState } from 'react';
-import './LikeButton.css';
+import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faBookmark as faBookmarkSolid } from "@fortawesome/free-solid-svg-icons";
+import { faBookmark as faBookmarkRegular } from "@fortawesome/free-regular-svg-icons";
 
-const LikeButton = ({ itemId, isLiked: controlledLiked, onToggle }) => {
+import "./LikeButton.css";  // or your path: src/styles/LikeButton.css
+
+const LikeButton = ({ itemId, type, isLiked: controlledLiked, onToggle }) => {
   const [internalLiked, setInternalLiked] = useState(false);
-  const isLiked = controlledLiked !== undefined ? controlledLiked : internalLiked;
-  const handleToggle = onToggle || (() => setInternalLiked(prev => !prev));
+
+  // "Liked" now means "bookmarked/saved"
+  const isSaved = controlledLiked !== undefined ? controlledLiked : internalLiked;
+
+  const handleToggle = () => {
+    if (onToggle) {
+      const uniqueKey = `${type}-${itemId}`;
+      onToggle(uniqueKey, !isSaved);
+    } else {
+      setInternalLiked((prev) => !prev);
+    }
+  };
 
   return (
     <button
-      className={`like-btn ${isLiked ? 'liked' : ''}`}
-      onClick={(e) => {
-        e.preventDefault();
-        e.stopPropagation();
-        handleToggle(itemId);
-      }}
-      aria-label={isLiked ? 'Unlike' : 'Like'}
+      className={`like-btn ${isSaved ? "saved" : ""}`}
+      onClick={handleToggle}
+      aria-label={isSaved ? "Remove bookmark" : "Bookmark"}
+      aria-pressed={isSaved}
     >
-      <svg viewBox="0 0 24 24">
-        <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z" />
-      </svg>
+      <FontAwesomeIcon
+        icon={isSaved ? faBookmarkSolid : faBookmarkRegular}
+        className="bookmark-icon"
+      />
     </button>
   );
 };

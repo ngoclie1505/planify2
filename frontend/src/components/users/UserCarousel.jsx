@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
-import PlanCard from "./PlanCard";
-import ViewMoreButton from "./ViewMoreButton";
+import UserCard from "./UserCard";
+import ViewMoreButton from "../myPlan/ViewMoreButton"; // adjust path if needed
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faAngleLeft, faAngleRight } from "@fortawesome/free-solid-svg-icons";
 
-import "./Carousel.css";
+import "../myPlan/Carousel.css"; // Reusing the same CSS
 
-const Carousel = ({ title, items, type, onViewMore }) => {
+const UserCarousel = ({ title, users, onViewMore }) => {
   const [offset, setOffset] = useState(0);
   const wrapperRef = useRef(null);
   const [visibleItems, setVisibleItems] = useState(5);
@@ -16,7 +16,6 @@ const Carousel = ({ title, items, type, onViewMore }) => {
   const GAP = 18;
   const ITEM_TOTAL_WIDTH = CARD_WIDTH + GAP;
 
-  // Calculate how many cards fit in the container
   useEffect(() => {
     const calculateVisible = () => {
       if (wrapperRef.current) {
@@ -31,7 +30,7 @@ const Carousel = ({ title, items, type, onViewMore }) => {
     return () => window.removeEventListener("resize", calculateVisible);
   }, []);
 
-  const maxOffset = Math.max(0, items.length - visibleItems);
+  const maxOffset = Math.max(0, users.length - visibleItems);
   const hasPrev = offset > 0;
   const hasNext = offset < maxOffset;
 
@@ -66,8 +65,8 @@ const Carousel = ({ title, items, type, onViewMore }) => {
             className="carousel-track"
             style={{ transform: `translateX(-${offset * ITEM_TOTAL_WIDTH}px)` }}
           >
-            {items.map((item) => (
-              <PlanCard key={item.id} item={item} type={type} />
+            {users.map((user) => (
+              <UserCard key={user.id} user={user} />
             ))}
           </div>
         </div>
@@ -76,4 +75,4 @@ const Carousel = ({ title, items, type, onViewMore }) => {
   );
 };
 
-export default Carousel;
+export default UserCarousel;

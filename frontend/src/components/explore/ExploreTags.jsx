@@ -3,11 +3,17 @@ import React from 'react';
 import './ExploreTags.css';
 
 const tagGroups = {
-  subject: ['Toán', 'Lý', 'Hóa', 'Văn', 'Anh', 'Sinh', 'Sử', 'Địa', 'Tin học'],
-  certificate: ['IELTS', 'TOEIC', 'VSTEP', 'SAT', 'IELTS UKVI', 'TOPIK'],
-  other: ['Kỹ năng mềm', 'Lập trình', 'Thiết kế', 'Marketing', 'Ngoại ngữ'],
+  subject: [
+    "Math", "Physics", "Chemistry", "Literature", "English",
+    "Biology", "History", "Geography", "Computer Science"
+  ],
+  certificate: [
+    "IELTS", "TOEIC", "VSTEP", "SAT", "IELTS UKVI", "TOPIK"
+  ],
+  other: [
+    "Soft Skills", "Programming", "Design", "Marketing", "Foreign Languages"
+  ],
 };
-
 const ExploreTags = ({ activeTab, pinnedTags, onPin, onUnpin }) => {
   const currentTags = tagGroups[activeTab] || [];
   const availableTags = currentTags.filter(tag => !pinnedTags.includes(tag));
@@ -17,7 +23,7 @@ const ExploreTags = ({ activeTab, pinnedTags, onPin, onUnpin }) => {
       {/* Pinned Tags Section */}
       {pinnedTags.length > 0 && (
         <div className="pinned-tags">
-          <div className="pinned-label">Đã ghim:</div>
+          <div className="pinned-label">Pinned:</div>
           <div className="pinned-tags-list">
             {pinnedTags.map(tag => (
               <span
@@ -28,7 +34,7 @@ const ExploreTags = ({ activeTab, pinnedTags, onPin, onUnpin }) => {
                 <button
                   className="unpin-btn"
                   onClick={() => onUnpin(tag)}
-                  aria-label={`Bỏ ghim ${tag}`}
+                  aria-label={`Unpin ${tag}`}
                 >
                   ×
                 </button>

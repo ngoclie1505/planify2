@@ -1,4 +1,3 @@
-// src/components/explore/ExploreHeader.jsx
 import React, { useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faMagnifyingGlass } from '@fortawesome/free-solid-svg-icons';
@@ -9,14 +8,14 @@ const ExploreHeader = ({ activeTab, setActiveTab }) => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    // TODO: Implement search functionality
     console.log('Searching for:', searchTerm);
+    // TODO: Implement actual search
   };
 
   const tabs = [
-    { id: 'subject', label: 'Môn học' },
-    { id: 'certificate', label: 'Chứng chỉ' },
-    { id: 'other', label: 'Khác' }
+    { id: 'subject', label: 'Subjects' },
+    { id: 'certificate', label: 'Certificates' },
+    { id: 'other', label: 'Other' }
   ];
 
   return (
@@ -32,11 +31,12 @@ const ExploreHeader = ({ activeTab, setActiveTab }) => {
         <button
           type="submit"
           className="search-icon-btn"
-          aria-label="Search"
+          aria-label="Tìm kiếm"
         >
           <FontAwesomeIcon
             icon={faMagnifyingGlass}
-            className="search-icon-img"
+            className="search-icon"
+            size="lg"  // Optional: makes it slightly bolder, looks great at small size
           />
         </button>
       </form>

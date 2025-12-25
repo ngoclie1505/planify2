@@ -75,17 +75,13 @@ const SavedPage = () => {
   // Full view mode - show all plans in a category
   if (fullView) {
     return (
-      <div className="saved-page">
-        <div className="full-view-header">
-          <button
-            className="back-btn"
-            onClick={() => setFullView(null)}
-          >
-            ← Quay lại
-          </button>
-          <h1 className="page-title">{fullView.title}</h1>
-        </div>
-        <PlanList initialPlans={fullView.items} defaultType="plan" />
+      <div className="explore-page">
+        <PlanList
+          initialPlans={fullView.items}
+          isFullView={true}
+          fullViewTitle={fullView.title}
+          onBack={() => setFullView(null)}
+        />
       </div>
     );
   }

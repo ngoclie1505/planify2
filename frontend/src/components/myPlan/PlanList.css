@@ -14,19 +14,13 @@
 
 .planlist-header {
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  justify-content: flex-end;   /* Đẩy search box sang phải */
   margin-bottom: 24px;
   flex-wrap: wrap;
   gap: 16px;
 }
 
-.planlist-title {
-  font-size: 20px;
-  font-weight: 600;
-  color: #1e293b;
-  margin: 0;
-}
+/* Không còn title nên không cần style cho nó nữa */
 
 .search-box {
   position: relative;
@@ -61,10 +55,13 @@
   pointer-events: none;
 }
 
+/* Grid: luôn full width, không co lại theo số card */
 .planlist-grid {
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
   gap: 20px;
+  /* Không dùng justify-content để tránh co cụm */
+  /* Mặc định là stretch → các card sẽ trải đều full width */
 }
 
 .no-results {
@@ -80,6 +77,10 @@
   transition: transform 0.25s ease;
 }
 
+.plan-card-wrapper:hover {
+  transform: translateY(-4px);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .planlist-wrapper {
@@ -90,7 +91,16 @@
     padding: 20px;
   }
 
+  .planlist-header {
+    justify-content: stretch;
+  }
+
+  .search-box {
+    width: 100%;
+  }
+
   .planlist-grid {
     gap: 16px;
   }
 }
+
