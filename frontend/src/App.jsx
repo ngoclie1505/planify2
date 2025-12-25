@@ -1,18 +1,22 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
-
+//sidebar
 import Home from "./pages/Home.jsx";
 import MainLayout from "./layouts/MainLayout.jsx";
 import MyPlan from "./pages/MyPlan.jsx";
 import Saved from "./pages/SavedPlan.jsx";
 import Commu from "./pages/ExplorePage.jsx";
 import Add from "./pages/CreatePlan.jsx";
+import About from "./pages/About.jsx";
+
+//header
 import MyProfile from "./pages/MyProfile.jsx";
 
+//other
 import LoginSignup from "./pages/LoginSignup.jsx"
-
 import Admin from "./pages/Admin.jsx";
 
+//view
 import ViewPlan from "./pages/ViewPlan.jsx"
 import UserView from "./components/users/UserView"; // Hoặc đường dẫn của bạn
 
@@ -21,10 +25,10 @@ function App() {
     <BrowserRouter>
 
       <Routes>
-        <Route path="/" element={<LoginSignup />} />
+        <Route path="/LoginSignup" element={<LoginSignup />} />
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
-          <Route path="/home" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/myplan" element={<MyPlan />} />
           <Route path="/saved" element={<Saved />} />
           <Route path="/commu" element={<Commu />} />
@@ -33,7 +37,7 @@ function App() {
           <Route path="/myprofile" element={<MyProfile />} />
 
 
-          {/* <Route path="/about" element={< about />} /> */}
+          <Route path="/about" element={< About />} />
 
           {/* Detail */}
           <Route path="/plans/:id" element={<ViewPlan />} />
