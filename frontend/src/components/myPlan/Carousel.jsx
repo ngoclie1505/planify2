@@ -12,7 +12,7 @@ const Carousel = ({ title, items, type, onViewMore }) => {
   const wrapperRef = useRef(null);
   const [visibleItems, setVisibleItems] = useState(5);
 
-  const CARD_WIDTH = 180;
+  const CARD_WIDTH = 240;  // Updated to match PlanCard.css width
   const GAP = 18;
   const ITEM_TOTAL_WIDTH = CARD_WIDTH + GAP;
 
@@ -38,7 +38,7 @@ const Carousel = ({ title, items, type, onViewMore }) => {
   return (
     <div className="carousel-box">
       <div className="section-header">
-        <h2 className="section-title">{title}</h2>
+        <h3 className="section-title">{title}</h3>
         {onViewMore && <ViewMoreButton onClick={onViewMore} />}
       </div>
 

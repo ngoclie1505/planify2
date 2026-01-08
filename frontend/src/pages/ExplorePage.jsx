@@ -239,7 +239,7 @@ const ExplorePage = () => {
         title="Popular Plans"
         items={explorePlans}
         type="plan"
-        onViewMore={() => handleViewMore('All Popular Plans', explorePlans, 'plan')}
+        onViewMore={() => handleViewMore('All Plans', explorePlans, 'plan')}
       />
 
       {/* Users Carousel */}

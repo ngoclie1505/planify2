@@ -1,13 +1,23 @@
 import React from 'react';
-import { Link } from "react-router-dom";
 import LikeButton from './LikeButton';
 import './PlanCard.css';
+import { Link, useLocation } from "react-router-dom";
 
 const PlanCard = ({ item }) => {
+  // Get current path to determine context
+  const location = useLocation();
+  const basePath = location.pathname.split('/')[1]; // "myplan", "saved", "commu", etc.
+
+  // Map to valid parent routes
+  const validParents = ['myplan', 'saved', 'commu'];
+  const parent = validParents.includes(basePath) ? basePath : '';
+
   return (
     <div className="plan-card">
-      {/* Use Link for navigation to ViewPlan */}
-      <Link to={`/plans/${item.id}`} className="plan-card-link">
+      <Link
+        to={parent ? `/${parent}/plans/${item.id}` : `/plans/${item.id}`}
+        className="plan-card-link"
+      >
         <div className="card-image" />
         <div className="card-info">
           <h3 className="plan-title">{item.title}</h3>
@@ -15,7 +25,6 @@ const PlanCard = ({ item }) => {
         </div>
       </Link>
 
-      {/* LikeButton positioned at bottom or corner */}
       <div className="like-button-wrapper">
         <LikeButton itemId={item.id} />
       </div>

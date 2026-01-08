@@ -9,6 +9,7 @@ import Commu from "./pages/ExplorePage.jsx";
 import Add from "./pages/CreatePlan.jsx";
 import About from "./pages/About.jsx";
 
+import PlanPage from "./pages/PlanDemo.jsx";
 //header
 import MyProfile from "./pages/MyProfile.jsx";
 
@@ -17,34 +18,47 @@ import LoginSignup from "./pages/LoginSignup.jsx"
 import Admin from "./pages/Admin.jsx";
 
 //view
-import ViewPlan from "./pages/ViewPlan.jsx"
-import UserView from "./components/users/UserView"; // Hoặc đường dẫn của bạn
+import ViewPlan from "./components/myPlan/ViewPlan.jsx"
+import ViewMyPlan from "./components/myPlan/ViewMyPlan.jsx"
+import UserView from "./components/users/UserView";
 
 function App() {
   return (
     <BrowserRouter>
-
       <Routes>
         <Route path="/LoginSignup" element={<LoginSignup />} />
+
         <Route element={<MainLayout />}>
           <Route path="/home" element={<Home />} />
           <Route path="/" element={<Home />} />
-          <Route path="/myplan" element={<MyPlan />} />
-          <Route path="/saved" element={<Saved />} />
-          <Route path="/commu" element={<Commu />} />
+
+          {/* Nested routes for plans with context */}
+          <Route path="/myplan">
+            <Route index element={<MyPlan />} />
+            <Route path="plans/:id" element={<ViewMyPlan/>} />
+          </Route>
+
+          <Route path="/saved">
+            <Route index element={<Saved />} />
+            <Route path="plans/:id" element={<ViewPlan />} />
+          </Route>
+
+          <Route path="/commu">
+            <Route index element={<Commu />} />
+            <Route path="plans/:id" element={<ViewPlan />} />
+          </Route>
+
           <Route path="/add" element={<Add />} />
-
           <Route path="/myprofile" element={<MyProfile />} />
+          <Route path="/about" element={<About/>} />
 
-
-          <Route path="/about" element={< About />} />
-
-          {/* Detail */}
+          {/* Fallback: direct access still works */}
           <Route path="/plans/:id" element={<ViewPlan />} />
+
           <Route path="/users/:userId" element={<UserView />} />
         </Route>
-        <Route path="/admin" element={<Admin />} />
 
+        <Route path="/admin" element={<Admin />} />
       </Routes>
     </BrowserRouter>
   );

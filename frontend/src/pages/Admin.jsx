@@ -91,9 +91,19 @@ export default function Admin() {
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [userToDelete, setUserToDelete] = useState(null);
 
+  // Notification state
+  const [notification, setNotification] = useState(null);
+
   useEffect(() => {
     fetchUsers();
   }, []);
+
+  useEffect(() => {
+    if (notification) {
+      const timer = setTimeout(() => setNotification(null), 3000);
+      return () => clearTimeout(timer);
+    }
+  }, [notification]);
 
   const fetchUsers = async () => {
     try {
@@ -148,11 +158,13 @@ export default function Admin() {
           email: form.email,
           password: form.password,
         });
+        setNotification("Thêm user thành công");
       } else {
         await usersApi.update(selectedUser.id, {
           username: form.username,
           email: form.email,
         });
+        setNotification("Sửa user thành công");
       }
       setModalOpen(false);
       await fetchUsers();
@@ -167,6 +179,7 @@ export default function Admin() {
     setModalLoading(true);
     try {
       await usersApi.delete(userToDelete.id);
+      setNotification("Xoá user thành công");
       setDeleteModalOpen(false);
       await fetchUsers();
     } catch (err) {
@@ -180,42 +193,12 @@ export default function Admin() {
     if (window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
       localStorage.removeItem("accessToken");
       localStorage.removeItem("role");
-      window.location.href = "/"; // Quay về trang login
+      window.location.href = "/LoginSignup"; // Quay về trang login
     }
   };
 
   return (
     <>
-      {/* ================= NÚT ĐĂNG XUẤT CỐ ĐỊNH GÓC PHẢI TRÊN ================= */}
-      <div
-        style={{
-          position: "fixed",
-          top: 20,
-          right: 20,
-          zIndex: 2000,
-        }}
-      >
-        <button
-          onClick={handleLogout}
-          style={{
-            padding: "12px 24px",
-            background: "#dc2626",
-            color: "#ffffff",
-            border: "none",
-            borderRadius: 12,
-            fontWeight: 600,
-            fontSize: 15,
-            cursor: "pointer",
-            boxShadow: "0 4px 12px rgba(220, 38, 38, 0.3)",
-            transition: "all 0.2s ease",
-          }}
-          onMouseOver={(e) => (e.currentTarget.style.background = "#b91c1c")}
-          onMouseOut={(e) => (e.currentTarget.style.background = "#dc2626")}
-        >
-          Log out
-        </button>
-      </div>
-
       {/* ================= MAIN CONTENT ================= */}
       <div
         style={{
@@ -225,7 +208,6 @@ export default function Admin() {
           display: "flex",
           flexDirection: "column",
           gap: 18,
-          paddingTop: 80, // Để tránh bị nút logout che nội dung
         }}
       >
         <header
@@ -241,6 +223,25 @@ export default function Admin() {
               Quản lý người dùng
             </h1>
           </div>
+          <button
+            onClick={handleLogout}
+            style={{
+              padding: "12px 24px",
+              background: "#dc2626",
+              color: "#ffffff",
+              border: "none",
+              borderRadius: 12,
+              fontWeight: 600,
+              fontSize: 15,
+              cursor: "pointer",
+              boxShadow: "0 4px 12px rgba(220, 38, 38, 0.3)",
+              transition: "all 0.2s ease",
+            }}
+            onMouseOver={(e) => (e.currentTarget.style.background = "#b91c1c")}
+            onMouseOut={(e) => (e.currentTarget.style.background = "#dc2626")}
+          >
+            Log out
+          </button>
         </header>
 
         <section style={cardStyle}>
@@ -471,6 +472,27 @@ export default function Admin() {
           </button>
         </div>
       </Modal>
+
+      {/* ================= NOTIFICATION ================= */}
+      {notification && (
+        <div
+          style={{
+            position: "fixed",
+            top: 20,
+            left: "50%",
+            transform: "translateX(-50%)",
+            background: "#16a34a",
+            color: "#ffffff",
+            padding: "12px 24px",
+            borderRadius: 8,
+            zIndex: 1000,
+            fontWeight: 600,
+            boxShadow: "0 4px 12px rgba(22, 163, 74, 0.4)",
+          }}
+        >
+          {notification}
+        </div>
+      )}
 
       {/* ================= CSS ANIMATIONS ================= */}
       <style jsx>{`

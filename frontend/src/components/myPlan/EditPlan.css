@@ -50,7 +50,7 @@
     cursor: pointer;
 }
 
-.create-btn, .save-btn{
+.save-btn{
     padding: 12px 26px;
     background-color: #153677;
     color: #ffffff;
@@ -69,7 +69,6 @@
     cursor: pointer;
 }
 
-.create-btn:hover,
 .review-btn:hover,
 .save-btn:hover,
 .cancel-btn:hover{

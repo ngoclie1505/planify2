@@ -105,21 +105,21 @@ const SavedPage = () => {
         title="English"
         items={savedPlans.english}
         type="plan"
-        onViewMore={() => handleViewMore('english', 'Tất cả kế hoạch English đã lưu')}
+        onViewMore={() => handleViewMore('english', 'English')}
       />
 
       <Carousel
         title="Math"
         items={savedPlans.math}
         type="plan"
-        onViewMore={() => handleViewMore('math', 'Tất cả kế hoạch Math đã lưu')}
+        onViewMore={() => handleViewMore('math', 'Math')}
       />
 
       <Carousel
         title="Coding"
         items={savedPlans.coding}
         type="plan"
-        onViewMore={() => handleViewMore('coding', 'Tất cả kế hoạch Coding đã lưu')}
+        onViewMore={() => handleViewMore('coding', 'Coding')}
       />
     </div>
   );

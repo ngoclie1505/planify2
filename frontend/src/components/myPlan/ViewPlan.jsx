@@ -1,9 +1,10 @@
+// ViewPlan.jsx
 import React, { useState, useEffect } from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import "./ViewPlan.css"; // CSS below
+import "./ViewPlan.css";
 
 const ViewPlan = () => {
-  const { id } = useParams();           // e.g. /plans/plan-123 → id = "plan-123"
+  const { id } = useParams();
   const navigate = useNavigate();
 
   const [plan, setPlan] = useState(null);
@@ -16,20 +17,14 @@ const ViewPlan = () => {
       setError(null);
 
       try {
-        // TODO: Replace with real API call when backend is ready
-        // const response = await fetch(`/api/plans/${id}`);
-        // const data = await response.json();
-
-        // Simulate API delay + mock data for now
         await new Promise((resolve) => setTimeout(resolve, 600));
 
-        // Mock full plan data (same structure you collect in CreatePlan)
         const mockPlans = {
           "plan-1": {
             title: "IELTS Speaking Mastery",
             description:
               "A complete 8-week program designed to help you achieve Band 7+ in IELTS Speaking. Includes daily practice, feedback tips, and real exam simulations.",
-            imageUrl: null, // replace with real URL when you upload images
+            imageUrl: null,
             categories: ["Language", "Exam", "English"],
             stages: [
               {
@@ -40,11 +35,7 @@ const ViewPlan = () => {
                     title: "Daily Topic Practice",
                     description: "Speak on 3 Part 1 topics every day.",
                     duration: "14",
-                    subtasks: [
-                      "Record yourself",
-                      "Note new vocabulary",
-                      "Self-evaluate fluency",
-                    ],
+                    subtasks: ["Record yourself", "Note new vocabulary", "Self-evaluate fluency"],
                   },
                   {
                     title: "Long Turn Practice",
@@ -62,19 +53,12 @@ const ViewPlan = () => {
                     title: "Themed Vocabulary Lists",
                     description: "Learn 20 new words/phrases per theme.",
                     duration: "14",
-                    subtasks: [
-                      "Environment",
-                      "Technology",
-                      "Education",
-                      "Health",
-                    ],
+                    subtasks: ["Environment", "Technology", "Education", "Health"],
                   },
                 ],
               },
-              // Add more stages as needed...
             ],
           },
-          // Add more mock plans if you want different IDs
         };
 
         const foundPlan = mockPlans[id] || null;
@@ -95,6 +79,12 @@ const ViewPlan = () => {
     fetchPlan();
   }, [id]);
 
+  const handleForkClick = () => {
+    // Tạm thời chưa làm gì - có thể thêm alert hoặc console.log để test
+    console.log("Fork Plan clicked - chức năng sẽ được triển khai sau");
+    // alert("Tính năng Fork Plan đang được phát triển!");
+  };
+
   if (loading) {
     return (
       <div className="viewplan-loading">
@@ -113,30 +103,30 @@ const ViewPlan = () => {
     );
   }
 
-  const {
-    title,
-    description,
-    imageUrl,
-    categories = [],
-    stages = [],
-  } = plan;
-
   return (
     <div className="viewplan-container">
-      {/* Back button */}
-      <button className="viewplan-back-btn" onClick={() => navigate(-1)}>
-        ← Back
-      </button>
+      {/* Header */}
+      <div className="viewplan-header">
+        <button className="viewplan-back-btn" onClick={() => navigate(-1)}>
+          ← Back
+        </button>
+
+        <div className="viewplan-actions">
+          <button className="btn-fork" onClick={handleForkClick}>
+            Fork Plan
+          </button>
+        </div>
+      </div>
 
       {/* Title */}
-      <h1 className="viewplan-title">{title}</h1>
+      <h1 className="viewplan-title">{plan.title}</h1>
 
       <div className="viewplan-main">
-        {/* Left sidebar: Image + Info */}
+        {/* Sidebar */}
         <div className="viewplan-sidebar">
           <div className="viewplan-image">
-            {imageUrl ? (
-              <img src={imageUrl} alt={title} />
+            {plan.imageUrl ? (
+              <img src={plan.imageUrl} alt={plan.title} />
             ) : (
               <div className="placeholder-image">
                 <div className="landscape-icon"></div>
@@ -147,56 +137,57 @@ const ViewPlan = () => {
           <div className="viewplan-info">
             <div className="info-section">
               <strong>Description</strong>
-              <p>{description}</p>
+              <p>{plan.description}</p>
             </div>
 
-            {categories.length > 0 && (
-              <div className="info-section">
-                <strong>Tags</strong>
-                <div className="category-tags">
-                  {categories.map((cat, i) => (
-                    <span key={i} className="category-tag">
-                      {cat}
-                    </span>
-                  ))}
-                </div>
+            <div className="info-section">
+              <strong>Tags</strong>
+              <div className="category-tags">
+                {plan.categories.map((cat, i) => (
+                  <span key={i} className="category-tag">
+                    {cat}
+                  </span>
+                ))}
               </div>
-            )}
+            </div>
           </div>
         </div>
 
-        {/* Right side: Stages */}
+        {/* Stages */}
         <div className="viewplan-stages">
-          {stages.map((stage, stageIdx) => (
+          {plan.stages.map((stage, stageIdx) => (
             <div key={stageIdx} className="viewplan-stage">
-              <h3 className="stage-title">
-                Stage {stageIdx + 1}: {stage.title || "Untitled Stage"}
-              </h3>
-              {stage.description && (
-                <p className="stage-description">{stage.description}</p>
-              )}
+              <div className="stage-header">
+                <h3 className="stage-title">
+                  Stage {stageIdx + 1}: {stage.title || "Untitled Stage"}
+                </h3>
+              </div>
+
+              {stage.description && <p className="stage-description">{stage.description}</p>}
 
               <div className="stage-tasks">
                 {stage.tasks.map((task, taskIdx) => (
                   <div key={taskIdx} className="viewplan-task">
-                    <h4 className="task-title">
-                      Task {taskIdx + 1}: {task.title || "Untitled Task"}
-                    </h4>
-                    {task.description && (
-                      <p className="task-description">{task.description}</p>
-                    )}
+                    <div className="task-header">
+                      <h4 className="task-title">
+                        Task {taskIdx + 1}: {task.title || "Untitled Task"}
+                      </h4>
+                    </div>
+
+                    {task.description && <p className="task-description">{task.description}</p>}
+
                     {task.duration && (
                       <p className="task-duration">
                         Duration: <strong>{task.duration} Days</strong>
                       </p>
                     )}
 
-                    {task.subtasks && task.subtasks.length > 0 && (
+                    {task.subtasks?.length > 0 && (
                       <div className="subtasks">
                         <strong>Subtasks:</strong>
                         <ul>
-                          {task.subtasks.map((sub, subIdx) => (
-                            <li key={subIdx}>{sub}</li>
+                          {task.subtasks.map((sub, i) => (
+                            <li key={i}>{sub}</li>
                           ))}
                         </ul>
                       </div>
@@ -207,9 +198,7 @@ const ViewPlan = () => {
             </div>
           ))}
 
-          {stages.length === 0 && (
-            <p className="no-stages">No stages defined yet.</p>
-          )}
+          {plan.stages.length === 0 && <p className="no-stages">No stages defined yet.</p>}
         </div>
       </div>
     </div>

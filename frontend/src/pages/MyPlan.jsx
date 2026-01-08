@@ -1,3 +1,4 @@
+// src/pages/MyPlan.jsx
 import React, { useState, useEffect } from 'react';
 import Carousel from '../components/myPlan/Carousel.jsx';
 import PlanList from '../components/myPlan/PlanList.jsx';
@@ -13,7 +14,7 @@ const PlanService = {
     return {
       recentlyOpened: [
         {
-          id: 'demo-recent-1',
+          id: 'my-recent-1',
           title: 'Morning Workout Routine',
           duration: '30 days • Fitness',
           authorId: userId,
@@ -23,7 +24,7 @@ const PlanService = {
       ],
       inProgress: [
         {
-          id: 'demo-progress-1',
+          id: 'my-progress-1',
           title: 'Learn React Advanced',
           duration: '60 days • Programming',
           authorId: userId,
@@ -34,7 +35,7 @@ const PlanService = {
       ],
       allPlans: [
         {
-          id: 'demo-recent-1',
+          id: 'my-recent-1',
           title: 'Morning Workout Routine',
           duration: '30 days • Fitness',
           authorId: userId,
@@ -42,7 +43,7 @@ const PlanService = {
           lastOpened: new Date('2024-12-18')
         },
         {
-          id: 'demo-progress-1',
+          id: 'my-progress-1',
           title: 'Learn React Advanced',
           duration: '60 days • Programming',
           authorId: userId,
@@ -51,7 +52,7 @@ const PlanService = {
           progress: 45
         },
         {
-          id: 'demo-all-1',
+          id: 'my-all-1',
           title: 'Healthy Meal Planning',
           duration: '14 days • Nutrition',
           authorId: userId,
@@ -62,7 +63,7 @@ const PlanService = {
   }
 };
 
-const MyPlanPage = () => {
+const MyPlan = () => {
   const [fullView, setFullView] = useState(null);
   const [loading, setLoading] = useState(true);
   const [planData, setPlanData] = useState({
@@ -119,7 +120,7 @@ const MyPlanPage = () => {
         title="Recently Opened"
         items={planData.recentlyOpened}
         onViewMore={() => setFullView({
-          title: 'Recently Opened',
+          title: 'Recently',
           items: planData.recentlyOpened
         })}
       />
@@ -136,4 +137,4 @@ const MyPlanPage = () => {
   );
 };
 
-export default MyPlanPage;
+export default MyPlan;
