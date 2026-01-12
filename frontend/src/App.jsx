@@ -9,13 +9,13 @@ import Commu from "./pages/ExplorePage.jsx";
 import Add from "./pages/CreatePlan.jsx";
 import About from "./pages/About.jsx";
 
-import PlanPage from "./pages/PlanDemo.jsx";
 //header
 import MyProfile from "./pages/MyProfile.jsx";
 
 //other
 import LoginSignup from "./pages/LoginSignup.jsx"
 import Admin from "./pages/Admin.jsx";
+import Notifications from "./components/header/Notification.jsx";
 
 //view
 import ViewPlan from "./components/myPlan/ViewPlan.jsx"
@@ -56,6 +56,9 @@ function App() {
           <Route path="/plans/:id" element={<ViewPlan />} />
 
           <Route path="/users/:userId" element={<UserView />} />
+
+          {/*Notification */}
+          <Route path="/notifications" element={<Notifications />} />
         </Route>
 
         <Route path="/admin" element={<Admin />} />

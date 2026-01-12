@@ -1,5 +1,5 @@
 import { NavLink } from "react-router-dom";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
   faMagnifyingGlass,
@@ -11,8 +11,26 @@ import {
 // Logo SVG
 import Logo from "../../assets/images/Logo.svg";
 
+// Import your NotificationDropdown component
+// Adjust the path based on your folder structure
+import NotificationDropdown from "../header/NotificationDropdown"; // ← change if needed
+import LanguageDropdown from "../header/LanguageDropdown";
+
 export default function Header() {
   const [searchValue, setSearchValue] = useState("");
+  const [showNotifications, setShowNotifications] = useState(false);
+  const [showLanguage, setShowLanguage] = useState(false);
+  const [currentLanguage, setCurrentLanguage] = useState('en'); // Default: 'en' for English
+
+  // Refs for containers
+  const bellContainerRef = useRef(null);
+  const languageContainerRef = useRef(null);
+
+  // Handler for language change (you can integrate with i18n library here)
+  const handleChangeLanguage = (lang) => {
+    setCurrentLanguage(lang);
+    // Add your language switch logic here, e.g., i18n.changeLanguage(lang);
+  };
 
   return (
     <header
@@ -97,17 +115,38 @@ export default function Header() {
           fontSize: "20px",
         }}
       >
-        <FontAwesomeIcon
-          icon={faGlobe}
-          title="Language"
-          style={{ color: "white", cursor: "pointer" }}
-        />
+        {/* Language (Globe) + Dropdown container */}
+        <div ref={languageContainerRef} style={{ position: "relative" }}>
+          <FontAwesomeIcon
+            icon={faGlobe}
+            title="Language"
+            style={{ color: "white", cursor: "pointer" }}
+            onClick={() => setShowLanguage((prev) => !prev)}
+          />
+          <LanguageDropdown
+            isOpen={showLanguage}
+            onClose={() => setShowLanguage(false)}
+            containerRef={languageContainerRef}
+            currentLanguage={currentLanguage}
+            onChangeLanguage={handleChangeLanguage}
+          />
+        </div>
 
-        <FontAwesomeIcon
-          icon={faBell}
-          title="Notifications"
-          style={{ color: "white", cursor: "pointer" }}
-        />
+        {/* Bell + Dropdown container */}
+        <div ref={bellContainerRef} style={{ position: "relative" }}>
+          <FontAwesomeIcon
+            icon={faBell}
+            title="Notifications"
+            style={{ color: "white", cursor: "pointer" }}
+            onClick={() => setShowNotifications((prev) => !prev)}
+          />
+
+          <NotificationDropdown
+            isOpen={showNotifications}
+            onClose={() => setShowNotifications(false)}
+            containerRef={bellContainerRef}  // ← Pass ref to include bell in "inside" check
+          />
+        </div>
 
         <NavLink
           to="/myprofile"
