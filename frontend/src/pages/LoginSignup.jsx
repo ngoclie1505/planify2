@@ -489,13 +489,13 @@ const LoginSignup = () => {
             </div>
 
             <button type="submit" disabled={loading}>
-              {loading ? "Đang xử lý..." : "Login"}
+              {loading ? "Loading..." : "Login"}
             </button>
 
             <p>
-              Chưa có tài khoản?{" "}
+              Don't have an account yet?{" "}
               <a href="#" onClick={(e) => { e.preventDefault(); setIsSignUp(true); }}>
-                Đăng ký ngay
+                Sign In
               </a>
             </p>
           </form>
@@ -561,13 +561,13 @@ const LoginSignup = () => {
             </div>
 
             <button type="submit" disabled={loading}>
-              {loading ? "Đang xử lý..." : "Sign Up"}
+              {loading ? "Loading..." : "Sign Up"}
             </button>
 
             <p>
-              Đã có tài khoản?{" "}
+              Already have an account?{" "}
               <a href="#" onClick={(e) => { e.preventDefault(); setIsSignUp(false); }}>
-                Đăng nhập
+                    Log In
               </a>
             </p>
           </form>

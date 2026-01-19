@@ -22,7 +22,7 @@ import OtherUser from "./pages/OtherUser";
 import ViewPlan from "./components/plans/ViewPlan.jsx";
 import ViewMyPlan from "./components/plans/ViewMyPlan.jsx";
 import UserView from "./components/users/UserView";
-
+import Notification from "./components/mainlayout/Notification.jsx"
 import "./App.css";
 
 //
@@ -59,9 +59,11 @@ export default function App() {
           <Route path="/users/:id" element={<UserView />} />
 
           <Route path="/about" element={<About />} />
+          <Route path="/notifications" element={<Notification/>} />
         </Route>
 
         <Route path="/" element={<LogSign />} />
+
         <Route path="/admin" element={<Admin />} />
 
 
