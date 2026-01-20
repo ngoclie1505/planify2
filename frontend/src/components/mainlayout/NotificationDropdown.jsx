@@ -1,70 +1,7 @@
 import React, { useState, useEffect, useRef } from 'react';
 import './NotificationDropdown.css';
 
-const fakeNotifications = [
-  {
-    id: 1,
-    name: "Sarah Chen",
-    avatar: "https://i.pravatar.cc/48?u=sarah",
-    action: "commented on your post",
-    message: "This looks amazing! 🔥",
-    time: "5m ago",
-    read: false
-  },
-  {
-    id: 2,
-    name: "Michael Park",
-    avatar: "https://i.pravatar.cc/48?u=michael",
-    action: "liked your photo",
-    time: "28m ago",
-    read: false
-  },
-  {
-    id: 3,
-    name: "Emma Thompson",
-    avatar: "https://i.pravatar.cc/48?u=emma",
-    action: "started following you",
-    time: "2h ago",
-    read: true
-  },
-  {
-    id: 4,
-    name: "Alex Kim",
-    avatar: "https://i.pravatar.cc/48?u=alex",
-    action: "mentioned you in a comment",
-    message: "@vu check this out!",
-    time: "1d ago",
-    read: true
-  },
-  {
-    id: 5,
-    name: "Project Team",
-    avatar: "https://i.pravatar.cc/48?u=team",
-    action: "added a new task to",
-    message: "Website Redesign 2026",
-    time: "2d ago",
-    read: true
-  },
-  // Add more if you want to test scrolling
-  {
-    id: 6,
-    name: "Lisa Wong",
-    avatar: "https://i.pravatar.cc/48?u=lisa",
-    action: "shared your project",
-    time: "3d ago",
-    read: true
-  },
-  {
-    id: 7,
-    name: "David Lee",
-    avatar: "https://i.pravatar.cc/48?u=david",
-    action: "invited you to collaborate",
-    time: "4d ago",
-    read: false
-  }
-];
-
-const NotificationDropdown = ({ isOpen, onClose, containerRef }) => {
+const NotificationDropdown = ({ isOpen, onClose, containerRef, notifications = [] }) => {
   const dropdownRef = useRef(null);
   const [filter, setFilter] = useState('all'); // 'all' or 'unread'
 
@@ -89,7 +26,7 @@ const NotificationDropdown = ({ isOpen, onClose, containerRef }) => {
 
   if (!isOpen) return null;
 
-  const displayedNotifications = fakeNotifications.filter(notif =>
+  const displayedNotifications = notifications.filter(notif =>
     filter === 'all' || !notif.read
   );
 
@@ -97,9 +34,9 @@ const NotificationDropdown = ({ isOpen, onClose, containerRef }) => {
     <div className="notification-dropdown" ref={dropdownRef}>
       <div className="notification-header">
         <h3>Notifications</h3>
-        {fakeNotifications.filter(n => !n.read).length > 0 && (
+        {notifications.filter(n => !n.read).length > 0 && (
           <span className="unread-badge">
-            {fakeNotifications.filter(n => !n.read).length} new
+            {notifications.filter(n => !n.read).length} new
           </span>
         )}
       </div>
