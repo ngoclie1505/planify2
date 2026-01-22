@@ -37,14 +37,7 @@ export default function Header() {
       </NavLink>
 
       {/* Search */}
-      <div className="app-header-search">
-        <FontAwesomeIcon icon={faMagnifyingGlass} className="icon" />
-        <input
-          value={searchValue}
-          onChange={(e) => setSearchValue(e.target.value)}
-          placeholder="Search plans, users..."
-        />
-      </div>
+
 
       {/* Actions */}
       <div className="app-header-actions">
