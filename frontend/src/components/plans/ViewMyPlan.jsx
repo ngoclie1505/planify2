@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
-import EditPlan from './EditPlan';
+import EditPlan from '../fork&edit/EditPlan';
 import PreviewModal from '../createplan/Preview';
 import './ViewMyPlan.css';
 

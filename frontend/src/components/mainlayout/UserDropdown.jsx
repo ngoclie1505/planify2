@@ -42,15 +42,31 @@ export default function UserMenuPopup({
   };
 
   const handleLogout = async () => {
-    const token = localStorage.getItem("token");
     try {
-      if (token) {
-        await authApi.logout(token);
+      const accessToken = localStorage.getItem("accessToken");
+
+      // Call logout API with token (as your authApi expects)
+      if (accessToken && accessToken !== "null") {
+        await authApi.logout(accessToken);
       }
-      localStorage.removeItem("token");
+
+      // Clear localStorage (use consistent key)
+      localStorage.removeItem("accessToken");
+      // Uncomment if you use these:
+      // localStorage.removeItem("refreshToken");
+      // localStorage.removeItem("user");
+
+      // Optional: clear any global state (Zustand, Redux, Context, etc.)
+      // authStore.clearUser?.();
+
       navigate("/");
     } catch (error) {
       console.error("Logout failed:", error);
+
+      // Fail-safe: always clear data and redirect
+      localStorage.removeItem("accessToken");
+      // localStorage.removeItem("refreshToken");
+      navigate("/");
     } finally {
       onClose();
     }
