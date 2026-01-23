@@ -102,7 +102,7 @@ const About = () => {
           </p>
           <p style={{ marginTop: '32px' }}>
             Ready to simplify your learning journey?<br /><br />
-            <a href="/logout" className="btn-primary">
+            <a href="/" className="btn-primary">
               Join Planify Today
             </a>
           </p>
