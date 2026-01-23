@@ -48,6 +48,8 @@ const ReviewPlanPopup = ({ isOpen, onClose, containerRef, reviewData }) => {
     incomplete = 0,
   } = reviewData || {};
 
+
+
   return (
     <>
       <div className="review-popup-backdrop" onClick={onClose} />
