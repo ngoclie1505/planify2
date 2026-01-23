@@ -1,4 +1,4 @@
-// auth.js
+// auth.js - SỬA NHƯ SAU:
 import httpPublic from './httpPublic';
 import httpAuth from './httpAuth';
 
@@ -9,11 +9,6 @@ export const authApi = {
 
   me: () => httpAuth.get('/users/myInfo'),
 
-  // Improved logout
-  logout: (token) => {
-    if (token) {
-      return httpAuth.post('/auth/logout', { token });
-    }
-    return httpAuth.post('/auth/logout'); // fallback: empty body
-  },
+  // Sửa logout: NÊN dùng httpPublic (không cần token)
+  logout: () => httpPublic.post('/auth/logout'),   // bỏ tham số token
 };

@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
-import { usersApi } from "../api/users";
+import { usersApi } from "../api/user";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faEye, faEyeSlash } from '@fortawesome/free-solid-svg-icons';
+import { authApi } from "../api/auth";
 
 /* ================= STYLES ================= */
 const cardStyle = {
@@ -29,6 +30,32 @@ const btnBase = {
   background: "#f8fafc",
   cursor: "pointer",
   fontSize: 13,
+};
+
+const handleLogout = async () => {
+  if (!window.confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+    return;
+  }
+
+  try {
+    // Gọi API logout (nhất quán với UserDropdown)
+    await authApi.logout().catch(() => {
+      // Bỏ qua lỗi API logout (không làm gián đoạn quá trình logout)
+    });
+
+    // Xóa token và role
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("role");
+
+    // Reload về trang chủ/login (giữ nguyên như bạn yêu cầu)
+    window.location.href = "/";
+  } catch (error) {
+    console.error("Logout error:", error);
+    // Fail-safe: vẫn xóa và logout
+    localStorage.removeItem("accessToken");
+    localStorage.removeItem("role");
+    window.location.href = "/";
+  }
 };
 
 /* ================= MODAL COMPONENT ================= */
@@ -317,7 +344,7 @@ export default function Admin() {
                       <span style={badgeStyle}>{u.role}</span>
                     </td>
                     <td style={{ padding: "12px 10px", display: "flex", gap: 8, justifyContent: "center" }}>
-                      <button style={btnBase} onClick={() => openEditModal(u)}>
+                      <button style={{ ...btnBase, color: "#000000"}} onClick={() => openEditModal(u)}>
                         Sửa
                       </button>
                       <button

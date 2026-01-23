@@ -29,7 +29,7 @@ export default function Header() {
   return (
     <header className="app-header">
       {/* Logo */}
-      <NavLink to="/" className="app-header-logo">
+      <NavLink to="/home" className="app-header-logo">
         <img src={Logo} alt="Planify Logo" />
       </NavLink>
 

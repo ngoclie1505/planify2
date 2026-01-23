@@ -2,6 +2,9 @@ import { useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faArrowRightFromBracket } from "@fortawesome/free-solid-svg-icons";
+
+import { authApi } from "../../api/auth";
+
 import "./UserDropdown.css";
 
 export default function UserMenuPopup({
@@ -9,12 +12,12 @@ export default function UserMenuPopup({
   onClose,
   containerRef,
   userAvatar,
-  userName
+  userName,
 }) {
   const popupRef = useRef(null);
   const navigate = useNavigate();
 
-  // close when clicking outside (same logic as other popups)
+  // Close popup when clicking outside
   useEffect(() => {
     if (!isOpen) return;
 
@@ -37,6 +40,26 @@ export default function UserMenuPopup({
     navigate(path);
     onClose();
   };
+
+    const handleLogout = async () => {
+      try {
+        const accessToken = localStorage.getItem("accessToken");
+        if (accessToken && accessToken !== "null") {
+          await authApi.logout().catch(() => {}); // bỏ qua lỗi API logout
+        }
+        localStorage.removeItem("accessToken");
+        navigate("/");
+
+      } catch (error) {
+        console.error("Logout failed:", error);
+
+        // Fail-safe: vẫn xóa token và redirect
+        localStorage.removeItem("accessToken");
+        navigate("/");
+      } finally {
+        onClose();
+      }
+    };
 
   if (!isOpen) return null;
 
@@ -66,7 +89,8 @@ export default function UserMenuPopup({
       {/* Actions */}
       <div className="user-dd-list">
         <button onClick={() => go("/myprofile")}>My profile</button>
-        <button className="danger" onClick={() => go("/logout")}>
+
+        <button className="danger" onClick={handleLogout}>
           <FontAwesomeIcon icon={faArrowRightFromBracket} className="icon" />
           Log out
         </button>
