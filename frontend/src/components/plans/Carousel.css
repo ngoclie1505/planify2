@@ -16,26 +16,31 @@
   align-items: center;
   margin-bottom: 12px;
   gap: 12px;
+  flex-wrap: nowrap; /* Đảm bảo không xuống dòng */
 }
 
 .section-title {
   font-size: 20px;
   font-weight: 600;
-  margin: 0;
+  margin: 0 !important; /* Thêm !important để chắc chắn */
   padding: 0;
   color: #1e293b;
   white-space: nowrap;
   overflow: hidden;
+  text-overflow: ellipsis; /* Thêm ... nếu text quá dài */
   flex: 1;
+  min-width: 0; /* Quan trọng: cho phép flex item co lại */
 }
 
 .view-more-btn {
   flex-shrink: 0;
+  white-space: nowrap;
 }
 
 .carousel {
   position: relative;
-  margin: 0 -20px;
+  margin: 0 0px;
+  padding: 0 0;
 }
 
 .carousel-wrapper {
@@ -44,7 +49,7 @@
   scroll-behavior: smooth;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  padding: 0 20px;
+  padding: 10px 0;
 }
 
 .carousel-wrapper::-webkit-scrollbar {
