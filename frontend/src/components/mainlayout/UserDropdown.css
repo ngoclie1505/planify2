@@ -13,11 +13,11 @@
   user-select: none;
 
   container-type: inline-size;
-  animation: fadeSlide 0.18s ease-out;
+  animation: userDropdownSlide 0.18s ease-out;
 }
 
-/* Animation matches other dropdowns */
-@keyframes fadeSlide {
+/* Animation riêng cho user dropdown */
+@keyframes userDropdownSlide {
   from {
     opacity: 0;
     transform: translateY(-6px);
