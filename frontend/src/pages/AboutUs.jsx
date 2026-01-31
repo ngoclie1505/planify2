@@ -100,12 +100,7 @@ const About = () => {
             Planify is proudly developed by a passionate team of students as part of <strong>Group Project B3</strong>,<br />
             using modern technologies: React.js, Spring Boot, MySQL, and Agile methodology.
           </p>
-          <p style={{ marginTop: '32px' }}>
-            Ready to simplify your learning journey?<br /><br />
-            <a href="/" className="btn-primary">
-              Join Planify Today
-            </a>
-          </p>
+
         </div>
       </section>
     </div>

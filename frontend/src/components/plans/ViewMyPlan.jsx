@@ -458,7 +458,7 @@ const ViewMyPlan = () => {
                     )}
 
                     {task.subtasks?.length > 0 && (
-                      <div className="subtasks">
+                      <div className="view_subtasks">
                         <strong>Subtasks:</strong>
                         <ul>
                           {task.subtasks.map((subtask, subtaskIdx) => (
