@@ -7,9 +7,6 @@ import "./MyBioMenu.css";
 
 // Giữ mock data cho Public Plans
 const MOCK_PUBLIC_PLANS = [
-  { id: 1, title: "30-Day Fitness Challenge", stages: 4, tasks: 12 },
-  { id: 2, title: "Learn Spanish", stages: 6, tasks: 24 },
-  { id: 3, title: "Web Dev Bootcamp", stages: 8, tasks: 36 },
 ];
 
 export default function MyBioMenu({ bio, stats, onStatsChange, userId }) {

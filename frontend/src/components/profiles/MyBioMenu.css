@@ -2,7 +2,7 @@
 .my-bio-menu-container {
   container-type: inline-size;
   container-name: mybiomenu;
-  display: block; /* Không còn grid 2 cột nữa, chỉ còn content section */
+  display: block;
   height: calc(100vh - 200px);
   max-height: 800px;
 }
@@ -73,14 +73,38 @@
 
 /* Grid for Plans & Users */
 .my-content-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-  gap: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px 20px;
+  justify-content: space-between;
+  padding: 0 8px;
 }
 
-@container mycontentsection (max-width: 600px) {
+/* Card */
+.my-user-card {
+  flex: 1 1 220px;            /* cơ bản 220px, co giãn được */
+  min-width: 180px;           /* không nhỏ quá */
+  max-width: 320px;           /* giới hạn max để không bị kéo quá to */
+  box-sizing: border-box;
+}
+
+/* Mobile - 2 cột hoặc linh hoạt */
+@container mycontentsection (max-width: 700px) {
   .my-content-grid {
-    grid-template-columns: 1fr;
+    justify-content: space-around;   /* hoặc space-between vẫn ok */
+    gap: 14px 16px;
+  }
+
+  .my-user-card {
+    flex: 1 1 45%;            /* ~2 cột */
+    max-width: 48%;
+  }
+}
+
+@container mycontentsection (max-width: 480px) {
+  .my-user-card {
+    flex: 1 1 100%;           /* 1 cột, chiếm full width */
+    max-width: 100%;
   }
 }
 
